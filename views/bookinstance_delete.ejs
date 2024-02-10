@@ -1,0 +1,19 @@
+<%-include("layout")%>
+    <h1>
+        <%=title%> : <%=copy.book.title%>
+    </h1>
+    <p>
+        <%=copy.imprint%>
+    </p>
+
+
+    <p>Do you really want to delete this Book?</p>
+    <form action="" method="post">
+        <div class="form-group">
+            <input type="hidden" id="copyid" class="form-control" name="copyid" value="<%=copy._id%>">
+        </div>
+        <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+
+
+    <%-include("footer")%>

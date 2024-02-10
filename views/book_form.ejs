@@ -1,0 +1,91 @@
+<%-include("layout")%>
+
+    <h1>
+        <%=title%>
+    </h1>
+
+    <form action="" method="post">
+
+        <div class="form-group">
+            <label for="title">Title: </label>
+            <input class="form-control" type="text" id="title" name="title" required placeholder="Name of the book"
+                value="<%= book===undefined?'':book.title%>">
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author: </label>
+            <select name="author" id="author" class="form-control" required>
+                <option value="">Please select an author</option>
+                <% authors.forEach((author)=>{ %>
+                    <% if(book){ %>
+                        <% if(author._id.toString()===book.author._id.toString()){ %>
+                            <option value="<%=author._id%>" selected>
+                                <%=author.name%>
+                            </option>
+                            <% } else { %>
+                                <option value="<%=author._id%>">
+                                    <%=author.name%>
+                                </option>
+                                <% } %>
+
+                                    <% } else { %>
+                                        <option value="<%=author._id%>">
+                                            <%=author.name%>
+                                        </option>
+                                        <% } %>
+
+                                            <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="summary">Summary: </label>
+            <textarea name="summary" id="summary" class="form-control" placeholder="Summary"
+                required><%= book === undefined ? '' : book.summary%></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="isbn">ISBN: </label>
+            <input id="isbn" class="form-control" type="text" placeholder="ISBN13" name="isbn" required
+                value="<%= book === undefined ? '' : book.isbn %>">
+        </div>
+
+        <div class="form-group">
+            <label>Genre: </label>
+            <div>
+                <% genres.forEach((genre)=>{ %>
+                    <div style="display: inline; padding-right: 10px;">
+                        <% if (genre.checked){ %>
+                            <input id="<%=genre._id%>" class="checkbox-input" type="checkbox" name="genre"
+                                value="<%=genre._id%>" checked>
+                            <% } else { %>
+                                <input id="<%=genre._id%>" class="checkbox-input" type="checkbox" name="genre"
+                                    value="<%=genre._id%>">
+                                <% } %>
+                                    <label for="<%=genre._id%>"> &nbsp;<%=genre.name%></label>
+                    </div>
+                    <% })%>
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+
+
+    <% if(errors){ %>
+        <ul>
+            <% errors.forEach((error)=>{ %>
+                <li>
+                    <%=error.msg%>
+                </li>
+                <% }); %>
+        </ul>
+        <% }; %>
+
+
+
+
+            <%-include("footer")%>

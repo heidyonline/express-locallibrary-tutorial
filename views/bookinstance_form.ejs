@@ -1,0 +1,72 @@
+<%-include("layout")%>
+
+    <h1>
+        <%=title%>
+    </h1>
+
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="book">Book: </label>
+            <select name="book" id="book" class="form-control" required>
+                <option value="">Please select a book</option>
+                <% book_list.forEach((book)=>{ %>
+                    <% if(selected_book==book._id.toString()){ %>
+                        <option value="<%=book._id%>" selected>
+                            <%=book.title%>
+                        </option>
+                        <% } else { %>
+                            <option value="<%=book._id%>">
+                                <%=book.title%>
+                            </option>
+                            <% } %>
+
+                                <% }) %>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="imprint">Imprint: </label>
+            <input type="text" id="imprint" class="form-control" name="imprint" required
+                placeholder="Publisher and date information"
+                value="<%= bookinstance===undefined?'':bookinstance.imprint%>">
+        </div>
+
+        <div class="form-group">
+            <label for="due_back">Date when book available</label>
+            <input type="date" id="due_back" class="form-control" name="due_back"
+                value="<%= bookinstance === undefined?'':bookinstance.due_back_yyyy_mm_dd%>">
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status: </label>
+            <select name="status" id="status" class="form-control" required>
+                <option value="">Please select a status</option>
+                <% ["Available", "Maintenance" , "Loaned" , "Reserved" ].forEach((val)=>{ %>
+                    <% if(bookinstance===undefined || bookinstance.status!=val){ %>
+                        <option value="<%=val%>">
+                            <%=val%>
+                        </option>
+                        <% } else { %>
+                            <option value="<%=val%>" selected>
+                                <%=val%>
+                            </option>
+                            <% } %>
+                                <% }) %>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    <% if(errors){ %>
+        <ul>
+            <% errors.forEach((error)=>{ %>
+                <li>
+                    <%=error.msg%>
+                </li>
+                <% }); %>
+        </ul>
+        <% }; %>
+
+
+            <%-include("footer")%>

@@ -1,0 +1,40 @@
+<%-include("layout")%>
+
+
+    <h1>
+        <%=title%>
+    </h1>
+
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="first_name">First Name: </label>
+            <input class="form-control" type="text" id="first_name" name="first_name" required placeholder="First name"
+                value="<%= author===undefined?'':author.first_name%>">
+            <label for="family_name">Family Name: </label>
+            <input class="form-control" type="text" id="family_name" name="family_name" required
+                placeholder="Family name" value="<%= author===undefined?'':author.family_name%>">
+        </div>
+        <div class="form-group">
+            <label for="date_of_birth">Date of Birth: </label>
+            <input class="form-control" type="date" id="date_of_birth" name="date_of_birth"
+                value="<%= author===undefined?'':author.dob_yyyy_mm_dd%>">
+            <label for="date_of_death">Date of Death: </label>
+            <input class="form-control" type="date" id="date_of_death" name="date_of_death"
+                value="<%= author===undefined?'':author.dod_yyyy_mm_dd%>">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+
+    <% if(errors){ %>
+        <ul>
+            <% errors.forEach((error)=>{ %>
+                <li>
+                    <%-error.msg%>
+                </li>
+                <% }); %>
+        </ul>
+        <% }; %>
+
+            <%-include("footer")%>

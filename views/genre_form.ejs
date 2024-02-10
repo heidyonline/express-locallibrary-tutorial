@@ -1,0 +1,28 @@
+<%-include("layout")%>
+    <h1>
+        <%=title%>
+    </h1>
+
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="name">Genre: </label>
+            <input class="form-control" type="text" id="name" name="name" required placeholder="Fantasy, Poetry, etc"
+                value="<%= genre===undefined?'':genre.name%>">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+    <% if(errors){ %>
+        <ul>
+            <% errors.forEach((error)=>{ %>
+                <li>
+                    <%-error.msg%>
+                </li>
+                <% }); %>
+        </ul>
+        <% }; %>
+
+
+
+            <%-include("footer")%>
